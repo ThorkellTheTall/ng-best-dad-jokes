@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { postsMock } from '../data/posts.mock';
+//import { postsMock } from '../data/posts.mock';
+import { HttpcallService } from '../httpcall.service';
 import { Post } from '../models/post.interface';
 
 @Component({
@@ -9,11 +10,16 @@ import { Post } from '../models/post.interface';
   styleUrls: ['./post.component.scss'],
 })
 export class PostComponent implements OnInit {
-  posts: Post[] = postsMock
+  // posts: Post[] = postsMock
+  posts: Post[] = [] ;
   post?: Post;
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, public httpcallService: HttpcallService) {}
 
+  
   ngOnInit(): void {
-    this.post = postsMock.find((post) => post.id === +this.route.snapshot.params['id']);
+    this.httpcallService.getPosts().subscribe((res) => {
+      this.posts = res
+    });
+    this.post = this.posts.find((post) => post.id === +this.route.snapshot.params['id']);
   }
 }
