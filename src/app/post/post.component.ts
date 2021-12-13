@@ -20,8 +20,8 @@ export class PostComponent implements OnInit {
     // this.httpcallService.getPosts().subscribe((res) => {
     //   this.posts = res
     // });
-    this.post = this.posts.find((post) => post.id === +this.route.queryParams.subscribe(params => {
-      params['id'];
-    }));
+    this.post = this.posts.find((post) => post.id === +this.route.snapshot.params['id']);
+    // this.post = this.posts.find((post) => post.id === +this.route.queryParams.subscribe(params => {
+    //   post.id = params['id'];}));
   } 
 }
